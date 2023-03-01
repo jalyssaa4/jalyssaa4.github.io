@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<head>
+  <title>Jalyssa A.</title>
+  <style>
+    body {
+      text-align: center;
+      background: url("https://mail.google.com/mail/u/0?ui=2&ik=aad3ce5455&attid=0.1&permmsgid=msg-a:r597319713567347763&th=17d80c356f4ee9bb&view=fimg&realattid=17d80c34327e40a14223&disp=thd&attbid=ANGjdJ-yVwfGK8jcNiWdMtjbuwKiip4z2Q0aE--aOWiX7YKW0_OuEQyp__yI-MiRguiys3F1eEHwY3KZ52OIXMkgoEPF5gDFvzBst-Ln-iZZh-s6QO47lGZCQ4MFWjE&ats=2524608000000&sz=w1920-h1000");
+      background-size: cover;
+      background-position: center;
+      color: blue;
+      font-family: oswald;
+    }
+    img{
+      width: 250px;
+      border-radius: 50px;
+      border: 5px solid purple;
+    }
+    p {
+      font-size: 22px;
+    }
+    input {
+      border: 0;
+      padding: 10px;
+      font-size: 18px;
+    }
+    input[type="submit"] {
+      background: purple;
+      color: red;
+    }
+  </style>
+</head>
+<body><a href="Jalyssa.html" id="" title="Jalyssa">Jalyssa</a>
+  <img src="https://mail.google.com/mail/u/0?ui=2&ik=aad3ce5455&attid=0.2&permmsgid=msg-a:r1246825997577148253&th=17eea314dc3e437c&view=fimg&realattid=17eea30ec8b549a89f31&disp=thd&attbid=ANGjdJ8IO8GjTbq-6b3WrrmIoMUdHqxuiTHiVq5J6fkIs0_cxiv7S9K36IE51DgCPAs8BtZXBEmzkzL0l_ElgLsp3nFfggPx4PWQe8FgwV4ZrChYD8aTcLNMZRLwf3M&ats=2524608000000&sz=w1920-h1000">
+  <p>Hi! I'm Jalyssa, a NYC-based child psychologist!</p>
+    <input id="Name" placeholder="Your name">
+	
+  <input id="Email" type="email" placeholder="Your email">
+  <input id="submit" type="submit">
+</body>
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from
+	 "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
+   import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js";
+
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyCdf7pdhmyi5iNBbxP0cWhX5De3QqKbHnY",
+    authDomain: "jalyssa-dac41.firebaseapp.com",
+    projectId: "jalyssa-dac41",
+    storageBucket: "jalyssa-dac41.appspot.com",
+    messagingSenderId: "786442750032",
+    appId: "1:786442750032:web:0285c11de2effe6b9c6955"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig); 
+  const db =getDatabase(app);
+
+const Name = document.querySelector("#Name") 
+const Email = document.querySelector("#Email")
+document.querySelector('#submit').addEventListener('click', Submit)
+  
+  function Submit() {
+  	  const timestamp = buildTimestamp()
+	  
+  	  set(ref(db, timestamp), {
+  		  Name: Name.value,
+  	      email: Email.value,
+  	  });
+
+  	  Name.value = ""
+  	  Email.value = ""
+  	}
+  
+
+	function buildTimestamp() {
+	  const now = new Date();
+	  let timestamp = now.getFullYear().toString() + "/";
+	  //const month = now.toLocaleString('default', { month: 'long' });
+
+	  let month = now.getMonth()+1   //add 1 because Javascript uses 0 for January
+	  month = month.toString()
+	  month = addLeadingZero(month)
+	  timestamp += month + "/"; 
+
+	  let date = now.getDate().toString()
+	  date = addLeadingZero(date)
+	  timestamp += date + "/";
+
+	  let hours = now.getHours().toString()
+	  hours = addLeadingZero(hours)
+	  timestamp += hours + ":";
+
+	  let minutes = now.getMinutes().toString()
+	  minutes = addLeadingZero(minutes)
+	  timestamp += minutes + ":";
+
+	  let seconds = now.getSeconds().toString()
+	  seconds = addLeadingZero(seconds)
+	  timestamp += seconds;
+  
+	  return timestamp
+	}
+	
+	function addLeadingZero(units) {
+		if (units.length < 2) {
+			units = "0" + units
+		}
+		return units
+	}
+
+  
+  
+  
+</script>
